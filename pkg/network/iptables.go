@@ -130,7 +130,7 @@ func (ru IPRule) Args() []string {
 		args = append(args, "-o", ru.Output)
 	}
 	if ru.Comment != "" {
-		args = append(args, "-m", "comment", "--comment", "\"", ru.Comment, "\"")
+		args = append(args, "-m", "comment", "--comment", "\""+ru.Comment+"\"")
 	}
 
 	if ru.Limit != "" {
