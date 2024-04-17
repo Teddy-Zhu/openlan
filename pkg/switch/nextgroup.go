@@ -314,17 +314,25 @@ func filter(results []PingCheckResult, condition func(PingCheckResult) bool) []P
 	return filteredResults
 }
 
+func extractStrings(list []co.MultiPath) []string {
+	var result []string
+	for _, item := range list {
+		result = append(result, item.NextHop)
+	}
+	return result
+}
+
 func compareMultiPaths(a []co.MultiPath, b []co.MultiPath) bool {
 	if len(a) != len(b) {
 		return false
 	}
 
-	for i := range a {
-		if !a[i].CompareEqual(b[i]) {
-			return false
-		}
-	}
-	return true
+	aNextHops := extractStrings(a)
+	bNextHops := extractStrings(b)
+	sort.Strings(aNextHops)
+	sort.Strings(bNextHops)
+
+	return fmt.Sprintf("%v", aNextHops) == fmt.Sprintf("%v", bNextHops)
 }
 
 // check the ipList and return the available NextHops
