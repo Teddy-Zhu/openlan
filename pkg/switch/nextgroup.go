@@ -234,7 +234,7 @@ func (c *NextGroupStrategyImpl) updateRoute(nlr *nl.Route) {
 	rand := libol.GenString(5)
 	promise := libol.NewPromise()
 	promise.Go(func() error {
-		c.out.Info("NextGroupStrategyImpl.updateRoute: %v, random: %s", nlr.String(), rand)
+		c.out.Info("NextGroupStrategyImpl.updateRoute: %p, random: %s", nlr, rand)
 		if err := nl.RouteReplace(nlr); err != nil {
 			c.out.Warn("NextGroupStrategyImpl.updateRoute: %v %s", nlr, err)
 			return err
